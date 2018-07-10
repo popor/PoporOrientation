@@ -15,17 +15,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[PoporOrientation swizzlingAppDelegate:self];
+    [PoporOrientation swizzlingAppDelegate:self];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        SEL originSEL  = @selector(application:supportedInterfaceOrientationsForWindow:);
-        if ([self respondsToSelector:originSEL]) {
-            NSLog(@"最终监测 包含");
-        }else{
-            NSLog(@"最终监测 不包含");
-        }
-        [self performSelector:originSEL withObject:application withObject:self.window];
-    });
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        SEL originSEL  = @selector(application:supportedInterfaceOrientationsForWindow:);
+    //        if ([self respondsToSelector:originSEL]) {
+    //            NSLog(@"最终监测 包含");
+    //        }else{
+    //            NSLog(@"最终监测 不包含");
+    //        }
+    //        [self performSelector:originSEL withObject:application withObject:self.window];
+    //    });
     
     return YES;
 }
@@ -58,7 +58,7 @@
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
-    NSLog(@"1.0");
+    // this will be replaced by PoporOrientation within runtime, do not remove!
     return UIInterfaceOrientationMaskPortrait;
 }
 

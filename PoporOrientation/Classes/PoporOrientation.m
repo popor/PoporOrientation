@@ -29,16 +29,15 @@
         
         Class class = [appDelegate class];
         
-        // 0. 如果用户没有增加原始的delegte,需要先增加
         if (![appDelegate respondsToSelector:originSEL]) {
-            NSLog(@"appDelegate 不包含");
-            class_addMethod(class, originSEL, class_getMethodImplementation([PoporOrientation class], originSEL), "lu@:@:@");
-        }
-        
-        if (![appDelegate respondsToSelector:originSEL]) {
-            NSLog(@"appDelegate 不包含");
+            //NSLog(@"appDelegate 不包含");
+            //class_addMethod(class, originSEL, class_getMethodImplementation([PoporOrientation class], originSEL), "lu@:@:@");
+            NSString * info = [NSString stringWithFormat:@"❌❌❌ PoporOrientation : Class [%@] should add code:\n\n- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {\n\t// this will be replaced by PoporOrientation within runtime, do not remove! \n\treturn UIInterfaceOrientationMaskPortrait;\n}\n\n❌❌❌\n", NSStringFromClass([appDelegate class])];
+            fprintf(stderr,"\n%s\n", [info UTF8String]);
+            return;
         }else{
-            NSLog(@"appDelegate 包含");
+            NSString * info = [NSString stringWithFormat:@"✅✅✅ PoporOrientation : Class [%@] will replace application:supportedInterfaceOrientationsForWindow:  by swizzlingApplication:supportedInterfaceOrientationsForWindow: \n", NSStringFromClass([appDelegate class])];
+            fprintf(stderr,"\n%s\n", [info UTF8String]);
         }
         
         // 1. 先增加一个方法.
