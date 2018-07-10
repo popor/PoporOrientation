@@ -1,0 +1,13 @@
+use_frameworks!
+
+target 'PoporOrientation_Example' do
+  pod 'PoporOrientation', :path => '../'
+
+  target 'PoporOrientation_Tests' do
+    inherit! :search_paths
+
+    
+  end
+  pod 'Masonry'
+  
+end

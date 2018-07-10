@@ -1,0 +1,27 @@
+PODS:
+  - Masonry (1.1.0)
+  - PoporFoundation/NSObject (0.0.10)
+  - PoporOrientation (0.0.1):
+    - PoporFoundation/NSObject
+
+DEPENDENCIES:
+  - Masonry
+  - PoporOrientation (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Masonry
+    - PoporFoundation
+
+EXTERNAL SOURCES:
+  PoporOrientation:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  PoporFoundation: 48521112e62ce24c27b228b89ae8ba8089599e6e
+  PoporOrientation: ee645c51b9af42f85d718948fbe230a7091564a2
+
+PODFILE CHECKSUM: 49716f31b32468face70c9911e84a278ae851c7c
+
+COCOAPODS: 1.5.3
