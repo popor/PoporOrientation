@@ -33,5 +33,6 @@ Pod::Spec.new do |s|
     s.source_files = 'PoporOrientation/Classes/*.{h,m}'
     
     s.dependency 'PoporFoundation/NSObject'
+    #s.dependency 'ReactiveObjC'
     
 end

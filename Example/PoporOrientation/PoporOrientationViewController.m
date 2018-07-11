@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[PoporOrientation share].allowRotation = YES;
     
     for (int i = 0; i<2; i++) {
         UIButton * oneBT = ({
@@ -77,7 +78,9 @@
 - (void)enableAction:(UIButton *)sender {
     sender.selected = !sender.isSelected;
     if (sender.isSelected) {
-        [PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeRight rotatedBlock:nil];
+        //[PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeRight rotatedBlock:nil];
+        [PoporOrientation enableRatationAutoRotatedBlock:nil];
+        
     }else{
         [PoporOrientation disabledRatation];
     }

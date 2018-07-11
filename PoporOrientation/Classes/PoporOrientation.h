@@ -18,10 +18,15 @@ typedef void(^BlockPUIDeviceOrientation) (UIDeviceOrientation orientation);
 
 @interface PoporOrientation : NSObject
 
-@property(nonatomic, getter=isAllowRotation) BOOL allowRotation;
+@property(nonatomic, getter=isAllowRotation)             BOOL allowRotation;
+@property(nonatomic, getter=isLock)                      BOOL lock;
 
-@property (nonatomic        ) UIDeviceOrientation        lastDeviceOrientation  ;// 自己使用
+@property (nonatomic        ) UIDeviceOrientation        lastDeviceOrientation;// 自己使用
 @property (nonatomic        ) UIInterfaceOrientationMask newInterfaceOrientationMask;// AppDelegate使用
+@property (nonatomic        ) UIInterfaceOrientation     newInterfaceOrientation;// AppDelegate使用
+
+@property (nonatomic        ) UIInterfaceOrientationMask lockInterfaceOrientationMask;// AppDelegate使用
+
 @property (nonatomic, copy  ) BlockPUIDeviceOrientation  rotatedBlock; // 完成旋转后的回调
 
 + (instancetype)share;
@@ -29,41 +34,19 @@ typedef void(^BlockPUIDeviceOrientation) (UIDeviceOrientation orientation);
 + (void)swizzlingAppDelegate:(id)appDelegate;
 
 + (void)enableRatation;
++ (void)enableRatationAutoRotatedBlock:(BlockPUIDeviceOrientation)block;
 + (void)enableRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation rotatedBlock:(BlockPUIDeviceOrientation)block;
 
 + (void)disabledRatation;
 + (void)disabledRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation;
 
-+ (void)rotateTo:(UIInterfaceOrientation)interfaceOrientation;
++ (void)lockRotation:(BOOL)lock;
 
-+ (void)nc:(UINavigationController *)nc popGREnabled:(BOOL)enabled;
+- (void)sysOritationMonitor_NotificationCenterEnabled:(BOOL)enabled;
+// 该函数enabled == NO,将关闭系统触发application:supportedInterfaceOrientationsForWindow:功能,需要的话可以重新打开.
+- (void)sysOritationMonitorEnabled:(BOOL)enabled;
+- (void)notificationCenterEnabled:(BOOL)enabled;
 
 @end
 
-
-
-// 示例代码
-//- (void)rotateAction:(UIButton *)sender {
-//    sender.selected = !sender.isSelected;
-//    if (sender.isSelected) {
-//        [UIDevice setAppAllowRotation:YES];
-//        [UIDevice switchNewOrientation:UIInterfaceOrientationLandscapeRight];
-//        __weak typeof(self) weakSelf = self;
-//        [UIDevice setRotationBlock:^(NSDictionary *dic) {
-//            if (weakSelf) {
-//                UIDeviceOrientation orientation = [dic[@"orientation"] integerValue];
-//                if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
-//                    [UIDevice nc:weakSelf.view.vc.navigationController popGREnabled:NO];
-//                }else{
-//                    [UIDevice nc:weakSelf.view.vc.navigationController popGREnabled:YES];
-//                }
-//            }
-//        }];
-//    }else{
-//        [UIDevice setAppAllowRotation:NO];
-//        [UIDevice switchNewOrientation:UIInterfaceOrientationPortrait];
-//        [UIDevice setRotationBlock:nil];
-//        [UIDevice nc:self.view.vc.navigationController popGREnabled:YES];
-//    }
-//}
 

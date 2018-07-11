@@ -10,6 +10,9 @@
 #endif
 #endif
 
+#import "PoporAppDelegate.h"
+#import "PoporInterfaceOrientation.h"
+#import "PoporMotionManager.h"
 #import "PoporOrientation.h"
 
 FOUNDATION_EXPORT double PoporOrientationVersionNumber;

@@ -11,7 +11,6 @@
 #endif
 
 #import "NSObject+Swizzling.h"
-#import "NSObject+WMSafeKVO.h"
 
 FOUNDATION_EXPORT double PoporFoundationVersionNumber;
 FOUNDATION_EXPORT const unsigned char PoporFoundationVersionString[];
