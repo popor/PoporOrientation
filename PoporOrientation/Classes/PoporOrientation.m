@@ -36,18 +36,6 @@
 }
 
 //------------------------------------------------------------------------------
-
-+ (void)enableRatation {
-    [PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeRight rotatedBlock:nil];
-}
-
-+ (void)enableRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation rotatedBlock:(BlockPUIDeviceOrientation)block {
-    PoporOrientation * po = [PoporOrientation share];
-    po.rotatedBlock = block;
-    po.allowRotation = YES;
-    [PoporInterfaceOrientation rotateTo:interfaceOrientation];
-}
-
 + (void)enableRatationAutoRotatedBlock:(BlockPUIDeviceOrientation)block {
     PoporOrientation * po = [PoporOrientation share];
     po.rotatedBlock = block;
@@ -65,6 +53,14 @@
         [po_.pmm stopMonitor];
     }];
 }
+
++ (void)enableRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation rotatedBlock:(BlockPUIDeviceOrientation)block {
+    PoporOrientation * po = [PoporOrientation share];
+    po.rotatedBlock = block;
+    po.allowRotation = YES;
+    [PoporInterfaceOrientation rotateTo:interfaceOrientation];
+}
+
 
 + (void)disabledRatation {
     [PoporOrientation disabledRatationRotateTo:UIInterfaceOrientationPortrait];
@@ -91,21 +87,8 @@
 
 // 该函数enabled == NO,将关闭系统触发application:supportedInterfaceOrientationsForWindow:功能,需要的话可以重新打开.
 - (void)sysOritationMonitor_NotificationCenterEnabled:(BOOL)enabled {
-    
     [self sysOritationMonitorEnabled:enabled];
     [self notificationCenterEnabled:enabled];
-    // __weak typeof(self) weakSelf = self;
-    // [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIDeviceOrientationDidChangeNotification object:nil] takeUntil:[self rac_willDeallocSignal]] subscribeNext:^(NSNotification * _Nullable x) {
-    //         NSLog(@"%@", x);
-    //         [weakSelf onDeviceOrientationDidChange];
-    // }];
-}
-
-+ (void)lockRotation:(BOOL)lock {
-    PoporOrientation * po = [PoporOrientation share];
-    po.lock = lock;
-    po.lockInterfaceOrientationMask = po.newInterfaceOrientationMask;
-    
 }
 
 - (void)sysOritationMonitorEnabled:(BOOL)enabled {
@@ -120,6 +103,7 @@
     }
 }
 
+#pragma mark - 通知部分
 - (void)notificationCenterEnabled:(BOOL)enabled {
     if (enabled) {
         if (!self.isEnableNotificationCenter) {
@@ -132,31 +116,39 @@
             [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
         }
     }
+    
+    // __weak typeof(self) weakSelf = self;
+    // [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIDeviceOrientationDidChangeNotification object:nil] takeUntil:[self rac_willDeallocSignal]] subscribeNext:^(NSNotification * _Nullable x) {
+    //         NSLog(@"%@", x);
+    //         [weakSelf onDeviceOrientationDidChange];
+    // }];
 }
-/// 设备旋转方向改变
+
+// 设备方向改变
 - (void)onDeviceOrientationDidChange {
     [self performSelector:@selector(onDeviceOrientationDidChangeDelay) withObject:nil afterDelay:0.05];
 }
 
-/// 设备旋转方向改变
 - (void)onDeviceOrientationDidChangeDelay {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if (self.lastDeviceOrientation != orientation) {
         self.lastDeviceOrientation  = orientation;
-        if ([PoporOrientation share].isAllowRotation) {
+        if (self.isLock) {
+            
+        }else if ([PoporOrientation share].isAllowRotation) {
             
             self.newInterfaceOrientationMask = [PoporInterfaceOrientation interfaceOrientationMask_deviceOrientation:orientation];
             self.newInterfaceOrientation = [PoporInterfaceOrientation interfaceOrientation_deviceOrientation:orientation];
             [PoporInterfaceOrientation rotateTo:self.newInterfaceOrientation];
             [self rotationOritationBlock:orientation];
-            
-            NSLog(@"方向UI监测 %lu, 刷新", self.newInterfaceOrientation);
+            //NSLog(@"方向UI监测 %lu, 刷新", self.newInterfaceOrientation);
         }
     }else{
-        NSLog(@"方向UI监测 %lu, 忽略", self.newInterfaceOrientation);
+        //NSLog(@"方向UI监测 %lu, 忽略", self.newInterfaceOrientation);
     }
 }
 
+#pragma mark - 处理block
 - (void)rotationOritationBlock:(UIDeviceOrientation)orientation {
     if (self.rotatedBlock) {
         self.rotatedBlock(orientation);

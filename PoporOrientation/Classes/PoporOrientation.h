@@ -22,25 +22,22 @@ typedef void(^BlockPUIDeviceOrientation) (UIDeviceOrientation orientation);
 @property(nonatomic, getter=isLock)                      BOOL lock;
 
 @property (nonatomic        ) UIDeviceOrientation        lastDeviceOrientation;// 自己使用
-@property (nonatomic        ) UIInterfaceOrientationMask newInterfaceOrientationMask;// AppDelegate使用
-@property (nonatomic        ) UIInterfaceOrientation     newInterfaceOrientation;// AppDelegate使用
+@property (nonatomic        ) UIInterfaceOrientationMask lastInterfaceOrientationMask;// AppDelegate使用
 
-@property (nonatomic        ) UIInterfaceOrientationMask lockInterfaceOrientationMask;// AppDelegate使用
+@property (nonatomic        ) UIInterfaceOrientation     newInterfaceOrientation;// AppDelegate使用
+@property (nonatomic        ) UIInterfaceOrientationMask newInterfaceOrientationMask;// AppDelegate使用
 
 @property (nonatomic, copy  ) BlockPUIDeviceOrientation  rotatedBlock; // 完成旋转后的回调
 
 + (instancetype)share;
-// 1.你需要注册 AppDelegate Class.
+
 + (void)swizzlingAppDelegate:(id)appDelegate;
 
-+ (void)enableRatation;
 + (void)enableRatationAutoRotatedBlock:(BlockPUIDeviceOrientation)block;
 + (void)enableRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation rotatedBlock:(BlockPUIDeviceOrientation)block;
 
 + (void)disabledRatation;
 + (void)disabledRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation;
-
-+ (void)lockRotation:(BOOL)lock;
 
 - (void)sysOritationMonitor_NotificationCenterEnabled:(BOOL)enabled;
 // 该函数enabled == NO,将关闭系统触发application:supportedInterfaceOrientationsForWindow:功能,需要的话可以重新打开.

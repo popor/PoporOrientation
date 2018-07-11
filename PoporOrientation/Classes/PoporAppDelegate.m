@@ -2,7 +2,8 @@
 //  PoporAppDelegate.m
 //  Masonry
 //
-//  Created by apple on 2018/7/11.
+//  Created by popor on 2018/1/20.
+//  Copyright © 2018年 popor. All rights reserved.
 //
 
 #import "PoporAppDelegate.h"
@@ -43,7 +44,7 @@
         //比如：”v@:”意思就是这已是一个void类型的方法，没有参数传入。
         //再比如 “i@:”就是说这是一个int类型的方法，没有参数传入。
         //再再比如”i@:@”就是说这是一个int类型的方法，又一个参数传入。
-        class_addMethod(class, swizzleSEL, class_getMethodImplementation([PoporAppDelegate class], swizzleSEL), "lu@:@:@");
+        class_addMethod(class, swizzleSEL, class_getMethodImplementation([self class], swizzleSEL), "lu@:@:@");
         
         // 2.再交换该方法
         [class methodSwizzlingWithOriginalSelector:originSEL bySwizzledSelector:swizzleSEL];
@@ -51,19 +52,19 @@
 }
 
 - (UIInterfaceOrientationMask)swizzlingApplication:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
+    
     PoporOrientation * po = [PoporOrientation share];
     po.lastDeviceOrientation = [UIDevice currentDevice].orientation;
-    //NSLog(@"PoporOrientation swizzling : %lu", [PoporOrientation share].lastDeviceOrientation);
     
     if (po.isLock) {
-        return po.lockInterfaceOrientationMask;
-    }else if ([PoporOrientation share].isAllowRotation) {
-        //NSLog(@"oritation: %lu", [PoporOrientation share].newInterfaceOrientationMask);
-        //return [PoporOrientation share].newInterfaceOrientationMask;
-        //NSLog(@"已开启: %i", self.tag++);
-        return [PoporInterfaceOrientation interfaceOrientationMask_deviceOrientation:[UIDevice currentDevice].orientation];
+        //NSLog(@"lock方向: %lu", po.lastInterfaceOrientationMask);
+        return po.lastInterfaceOrientationMask;
+    }else if (po.isAllowRotation) {
+        po.lastInterfaceOrientationMask = [PoporInterfaceOrientation interfaceOrientationMask_deviceOrientation:po.lastDeviceOrientation];
+        //NSLog(@"陀螺仪方向: %lu", po.lastInterfaceOrientationMask);
+        return po.lastInterfaceOrientationMask;
     }else{
-        //NSLog(@"未开启: %i", self.tag++);
+        //NSLog(@"固定方向");
         return UIInterfaceOrientationMaskPortrait;
     }
 }

@@ -2,7 +2,8 @@
 //  PoporInterfaceOrientation.h
 //  Masonry
 //
-//  Created by apple on 2018/7/11.
+//  Created by popor on 2018/1/20.
+//  Copyright © 2018年 popor. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,5 +15,6 @@
 
 + (UIInterfaceOrientation)interfaceOrientation_deviceOrientation:(UIDeviceOrientation)deviceOrientation;
 + (UIInterfaceOrientationMask)interfaceOrientationMask_deviceOrientation:(UIDeviceOrientation)deviceOrientation;
++ (UIImageOrientation)imageOrientation_deviceOrientation:(UIDeviceOrientation)deviceOrientation;
 
 @end
