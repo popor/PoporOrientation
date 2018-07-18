@@ -33,11 +33,23 @@ typedef void(^BlockPUIDeviceOrientation) (UIDeviceOrientation orientation);
 
 + (void)swizzlingAppDelegate:(id)appDelegate;
 
-+ (void)enableRatationAutoRotatedBlock:(BlockPUIDeviceOrientation)block;
-+ (void)enableRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation rotatedBlock:(BlockPUIDeviceOrientation)block;
+// 全自动方向
++ (void)enableAutoFinish:(BlockPUIDeviceOrientation)block;
 
-+ (void)disabledRatation;
-+ (void)disabledRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation;
+// 自动旋转,假如当前为非左右方向,那么旋转为左方向,然后自动跟随设备方向旋转
++ (void)enablePriorityLeftFinish:(BlockPUIDeviceOrientation)block;
+// 自动旋转,假如当前为非左右方向,那么旋转为右方向,然后自动跟随设备方向旋转
++ (void)enablePriorityRightFinish:(BlockPUIDeviceOrientation)block;
+// 内部接口,主要供enablePriorityLeftFinish:和enablePriorityRightFinish:使用
++ (void)enablePriorityTo:(UIInterfaceOrientation)interfaceOrientation finish:(BlockPUIDeviceOrientation)block;
+
+// 自动旋转为?,然后自动跟随设备方向旋转
++ (void)enableRotateTo:(UIInterfaceOrientation)interfaceOrientation finish:(BlockPUIDeviceOrientation)block;
+
+// 关闭自动旋转功能
++ (void)disabled;
+// 关闭旋转功能,并且旋转到?
++ (void)disabledRotateTo:(UIInterfaceOrientation)interfaceOrientation;
 
 - (void)sysOritationMonitor_NotificationCenterEnabled:(BOOL)enabled;
 // 该函数enabled == NO,将关闭系统触发application:supportedInterfaceOrientationsForWindow:功能,需要的话可以重新打开.

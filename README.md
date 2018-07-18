@@ -104,7 +104,7 @@ pod 'PoporOrientation'
 
 ## Author
 
-wangkq, 908891024@qq.com
+popor, 908891024@qq.com
 
 ## License
 

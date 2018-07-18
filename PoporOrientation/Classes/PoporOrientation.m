@@ -36,7 +36,8 @@
 }
 
 //------------------------------------------------------------------------------
-+ (void)enableRatationAutoRotatedBlock:(BlockPUIDeviceOrientation)block {
+// 全自动方向
++ (void)enableAutoFinish:(BlockPUIDeviceOrientation)block {
     PoporOrientation * po = [PoporOrientation share];
     po.rotatedBlock = block;
     po.allowRotation = YES;
@@ -60,7 +61,53 @@
     }];
 }
 
-+ (void)enableRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation rotatedBlock:(BlockPUIDeviceOrientation)block {
+// 自动旋转,假如当前为非左右方向,那么旋转为左方向,然后自动跟随设备方向旋转
++ (void)enablePriorityLeftFinish:(BlockPUIDeviceOrientation)block {
+    [self enablePriorityTo:UIInterfaceOrientationLandscapeLeft finish:block];
+}
+
+// 自动旋转,假如当前为非左右方向,那么旋转为右方向,然后自动跟随设备方向旋转
++ (void)enablePriorityRightFinish:(BlockPUIDeviceOrientation)block {
+    [self enablePriorityTo:UIInterfaceOrientationLandscapeRight finish:block];
+}
+
+// 内部接口,主要供enablePriorityLeftFinish:和enablePriorityRightFinish:使用
++ (void)enablePriorityTo:(UIInterfaceOrientation)interfaceOrientation finish:(BlockPUIDeviceOrientation)block {
+    if (interfaceOrientation != UIInterfaceOrientationLandscapeLeft &&
+        interfaceOrientation != UIInterfaceOrientationLandscapeRight) {
+        interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
+    }
+    PoporOrientation * po = [PoporOrientation share];
+    po.rotatedBlock = block;
+    po.allowRotation = YES;
+    
+#if TARGET_IPHONE_SIMULATOR
+    //模拟器 : 由于虚拟机没有陀螺仪,所以需要多执行下面的代码,这样的话,会触发系统紊乱,从而自动识别到对的方向.
+    NSLog(@"PoporOrientation : 虚拟机优先旋转可能存在问题.");
+    UIInterfaceOrientation io = [PoporInterfaceOrientation interfaceOrientation_deviceOrientation:po.lastDeviceOrientation];
+    [PoporInterfaceOrientation rotateTo:io];
+#elif TARGET_OS_IPHONE//真机
+    //真机 : 存在陀螺仪的话,不需要多余的操作.
+#endif
+    
+    if (!po.pmm) {
+        po.pmm = [PoporMotionManager new];
+    }
+    [po.pmm startMonitor:^(BOOL success) {
+        PoporOrientation * po_ = [PoporOrientation share];
+        UIInterfaceOrientation io = [po_.pmm interfaceOrientation];
+        if (io == UIInterfaceOrientationUnknown ||
+            io == UIInterfaceOrientationPortrait ||
+            io == UIInterfaceOrientationPortraitUpsideDown) {
+            io = interfaceOrientation;
+        }
+        [PoporInterfaceOrientation rotateTo:io];
+        [po_.pmm stopMonitor];
+    }];
+}
+
+// 自动旋转为?,然后自动跟随设备方向旋转
++ (void)enableRotateTo:(UIInterfaceOrientation)interfaceOrientation finish:(BlockPUIDeviceOrientation)block {
     PoporOrientation * po = [PoporOrientation share];
     po.rotatedBlock = block;
     po.allowRotation = YES;
@@ -68,11 +115,11 @@
 }
 
 
-+ (void)disabledRatation {
-    [PoporOrientation disabledRatationRotateTo:UIInterfaceOrientationPortrait];
++ (void)disabled {
+    [PoporOrientation disabledRotateTo:UIInterfaceOrientationPortrait];
 }
 
-+ (void)disabledRatationRotateTo:(UIInterfaceOrientation)interfaceOrientation {
++ (void)disabledRotateTo:(UIInterfaceOrientation)interfaceOrientation {
     PoporOrientation * po = [PoporOrientation share];
     po.rotatedBlock = nil;
     po.allowRotation = NO;

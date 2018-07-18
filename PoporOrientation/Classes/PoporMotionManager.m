@@ -18,7 +18,7 @@
 
 @implementation PoporMotionManager
 
-- (void)startMonitor:(void (^)(BOOL success))finishBolck {
+- (void)startMonitor:(void (^)(BOOL success)) finishBolck {
     if (_motionManager == nil) {
         _motionManager = [[CMMotionManager alloc] init];
     }
@@ -30,16 +30,16 @@
         NSLog(@"PoporOrientation : Device Motion Available");
         //__weak typeof(self) weakSelf = self;
         [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]  withHandler: ^(CMDeviceMotion *motion, NSError*error){
-            if (finishBolck) {
-                finishBolck(YES);
+            if ( finishBolck) {
+                 finishBolck(YES);
             }
             //[weakSelf performSelectorOnMainThread:@selector(handleDeviceMotion:) withObject:motion waitUntilDone:YES];
         }];
     } else {
         NSLog(@"PoporOrientation : No device motion on device.");
         _motionManager = nil;
-        if (finishBolck) {
-            finishBolck(NO);
+        if ( finishBolck) {
+             finishBolck(NO);
         }
     }
 }

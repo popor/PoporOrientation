@@ -16,7 +16,7 @@
 
 @interface PoporMotionManager : NSObject
 
-- (void)startMonitor:(void (^)(BOOL success))finishBolck;
+- (void)startMonitor:(void (^)(BOOL success)) finishBolck;
 - (void)stopMonitor;
 
 - (UIImageOrientation)imageOritation;

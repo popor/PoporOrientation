@@ -19,6 +19,9 @@
 @property (nonatomic, strong) UIButton * autoRotateFisrtLeftBT;
 @property (nonatomic, strong) UIButton * autoRotateFisrtRightBT;
 
+@property (nonatomic, strong) UIButton * autoRotatePriorityLeftBT;
+@property (nonatomic, strong) UIButton * autoRotatePriorityRightBT;
+
 @property (nonatomic, strong) NSMutableArray * rotationBTArray;
 
 @end
@@ -30,7 +33,7 @@
     //[PoporOrientation share].allowRotation = YES;
     
     self.rotationBTArray = [NSMutableArray new];
-    for (int i = 0; i<4; i++) {
+    for (int i = 0; i<6; i++) {
         UIButton * oneBT = ({
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame =  CGRectMake(100, 100 + 60*i, 80, 44);
@@ -78,6 +81,20 @@
                 self.autoRotateFisrtRightBT = oneBT;
                 break;
             }
+            case 4:{
+                [oneBT setTitle:@"自动优先左-关" forState:UIControlStateNormal];
+                [oneBT setTitle:@"自动优先左-开" forState:UIControlStateSelected];
+                [oneBT addTarget:self action:@selector(autoPriorityLeftAction:) forControlEvents:UIControlEventTouchUpInside];
+                self.autoRotatePriorityLeftBT = oneBT;
+                break;
+            }
+            case 5:{
+                [oneBT setTitle:@"自动优先右-关" forState:UIControlStateNormal];
+                [oneBT setTitle:@"自动优先右-开" forState:UIControlStateSelected];
+                [oneBT addTarget:self action:@selector(autoPriorityRightAction:) forControlEvents:UIControlEventTouchUpInside];
+                self.autoRotatePriorityRightBT = oneBT;
+                break;
+            }
             default:
                 break;
         }
@@ -110,16 +127,31 @@
         make.height.mas_equalTo(self.autoRotateFisrtRightBT.mas_height);
         make.right.mas_equalTo(-20);
     }];
+    
+    // -----
+    [self.autoRotatePriorityRightBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.autoRotateFisrtRightBT.mas_bottom).mas_offset(20);
+        make.left.mas_equalTo(self.autoRotateBT.mas_left);
+        make.height.mas_equalTo(self.autoRotateBT.mas_height);
+    }];
+    
+    [self.autoRotatePriorityLeftBT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.autoRotatePriorityRightBT.mas_top);
+        make.left.mas_equalTo(self.autoRotatePriorityRightBT.mas_right).mas_offset(20);
+        make.width.mas_equalTo(self.autoRotatePriorityRightBT.mas_width);
+        make.height.mas_equalTo(self.autoRotatePriorityRightBT.mas_height);
+        make.right.mas_equalTo(-20);
+    }];
 }
 
 - (void)autoRotationAction:(UIButton *)bt {
     [self removeOtherStatus:bt];
     bt.selected = !bt.isSelected;
     if (bt.isSelected) {
-        [PoporOrientation enableRatationAutoRotatedBlock:nil];
+        [PoporOrientation enableAutoFinish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabledRatation];
+        [PoporOrientation disabled];
     }
 }
 
@@ -132,10 +164,10 @@
     [self removeOtherStatus:bt];
     bt.selected = !bt.isSelected;
     if (bt.isSelected) {
-        [PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeLeft rotatedBlock:nil];
+        [PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeLeft finish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabledRatation];
+        [PoporOrientation disabled];
     }
 }
 
@@ -143,10 +175,32 @@
     [self removeOtherStatus:bt];
     bt.selected = !bt.isSelected;
     if (bt.isSelected) {
-        [PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeRight rotatedBlock:nil];
+        [PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeRight finish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabledRatation];
+        [PoporOrientation disabled];
+    }
+}
+
+- (void)autoPriorityLeftAction:(UIButton *)bt {
+    [self removeOtherStatus:bt];
+    bt.selected = !bt.isSelected;
+    if (bt.isSelected) {
+        [PoporOrientation enablePriorityLeftFinish:nil];
+        [self closeLockEvent];
+    }else{
+        [PoporOrientation disabled];
+    }
+}
+
+- (void)autoPriorityRightAction:(UIButton *)bt {
+    [self removeOtherStatus:bt];
+    bt.selected = !bt.isSelected;
+    if (bt.isSelected) {
+        [PoporOrientation enablePriorityRightFinish:nil];
+        [self closeLockEvent];
+    }else{
+        [PoporOrientation disabled];
     }
 }
 
