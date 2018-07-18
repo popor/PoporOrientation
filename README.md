@@ -11,26 +11,26 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ### 1.you need registe in AppDelegate
 ### 1.你需要在 AppDelegate中注册
-### - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-### {
-###    [PoporOrientation swizzlingAppDelegate:self];
-###    return YES;
-### }
+- - (BOOL)application:(UIApplication *)application did finishLaunchingWithOptions:(NSDictionary *)launchOptions
+- {
+-    [PoporOrientation swizzlingAppDelegate:self];
+-    return YES;
+- }
 
 ### - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
-### 	// this will be replaced by PoporOrientation within runtime, do not remove!
-### 	return UIInterfaceOrientationMaskPortrait;
-### }
+- 	// this will be replaced by PoporOrientation within runtime, do not remove!
+- 	return UIInterfaceOrientationMaskPortrait;
+- }
 
 ### 2. demo
 ### - (void)autoRotationAction:(UIButton *)bt {
 ### 	[self removeOtherStatus:bt];
 ### 	bt.selected = !bt.isSelected;
 ### 	if (bt.isSelected) {
-### 		[PoporOrientation enableRatationAutoRotatedBlock:nil];
+### 		[PoporOrientation enableAuto finish:nil];
 ###			[self closeLockEvent];
 ### 	}else{
-###			 [PoporOrientation disabledRatation];
+###			 [PoporOrientation disabled];
 ### 	}
 ### }
 
@@ -38,10 +38,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ### 	[self removeOtherStatus:bt];
 ###		bt.selected = !bt.isSelected;
 ### 	if (bt.isSelected) {
-### 		[PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeLeft rotatedBlock:nil];
+### 		[PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeLeft  finish:nil];
 ### 		[self closeLockEvent];
 ### 	}else{
-### 		[PoporOrientation disabledRatation];
+### 		[PoporOrientation disabled];
 ### 	}
 ### }
 
@@ -49,10 +49,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ### 	[self removeOtherStatus:bt];
 ### 	bt.selected = !bt.isSelected;
 ### 	if (bt.isSelected) {
-###			 [PoporOrientation enableRatationRotateTo:UIInterfaceOrientationLandscapeRight rotatedBlock:nil];
+###			 [PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeRight  finish:nil];
 ### 		[self closeLockEvent];
 ### 	}else{
-### 		[PoporOrientation disabledRatation];
+### 		[PoporOrientation disabled];
 ### 	}
 ### }
 
