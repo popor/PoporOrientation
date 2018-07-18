@@ -39,7 +39,7 @@
 // 全自动方向
 + (void)enableAutoFinish:(BlockPUIDeviceOrientation)block {
     PoporOrientation * po = [PoporOrientation share];
-    po.rotatedBlock = block;
+    po.finishBlock = block;
     po.allowRotation = YES;
 
 #if TARGET_IPHONE_SIMULATOR
@@ -78,7 +78,7 @@
         interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
     }
     PoporOrientation * po = [PoporOrientation share];
-    po.rotatedBlock = block;
+    po.finishBlock = block;
     po.allowRotation = YES;
     
 #if TARGET_IPHONE_SIMULATOR
@@ -109,19 +109,19 @@
 // 自动旋转为?,然后自动跟随设备方向旋转
 + (void)enableRotateTo:(UIInterfaceOrientation)interfaceOrientation finish:(BlockPUIDeviceOrientation)block {
     PoporOrientation * po = [PoporOrientation share];
-    po.rotatedBlock = block;
+    po.finishBlock = block;
     po.allowRotation = YES;
     [PoporInterfaceOrientation rotateTo:interfaceOrientation];
 }
 
 
-+ (void)disabled {
-    [PoporOrientation disabledRotateTo:UIInterfaceOrientationPortrait];
++ (void)disable {
+    [PoporOrientation disableRotateTo:UIInterfaceOrientationPortrait];
 }
 
-+ (void)disabledRotateTo:(UIInterfaceOrientation)interfaceOrientation {
++ (void)disableRotateTo:(UIInterfaceOrientation)interfaceOrientation {
     PoporOrientation * po = [PoporOrientation share];
-    po.rotatedBlock = nil;
+    po.finishBlock = nil;
     po.allowRotation = NO;
     [PoporInterfaceOrientation rotateTo:interfaceOrientation];
 }
@@ -203,8 +203,8 @@
 
 #pragma mark - 处理block
 - (void)rotationOritationBlock:(UIDeviceOrientation)orientation {
-    if (self.rotatedBlock) {
-        self.rotatedBlock(orientation);
+    if (self.finishBlock) {
+        self.finishBlock(orientation);
     }
 }
 

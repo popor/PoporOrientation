@@ -32,7 +32,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 		[PoporOrientation enableAutoFinish:nil];
 		[self closeLockEvent];
 	}else{
-		[PoporOrientation disabled];
+		[PoporOrientation disable];
 	}
 }
 
@@ -47,7 +47,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 		[PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeLeft finish:nil];
 		[self closeLockEvent];
 	}else{
-		[PoporOrientation disabled];
+		[PoporOrientation disable];
 	}
 }
 
@@ -57,7 +57,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 		[PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeRight finish:nil];
 		[self closeLockEvent];
 	}else{
-		[PoporOrientation disabled];
+		[PoporOrientation disable];
 	}
 }
 
@@ -67,7 +67,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 		[PoporOrientation enablePriorityLeftFinish:nil];
 		[self closeLockEvent];
 	}else{
-		[PoporOrientation disabled];
+		[PoporOrientation disable];
 	}
 }
 
@@ -77,7 +77,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 		[PoporOrientation enablePriorityRightFinish:nil];
 		[self closeLockEvent];
 	}else{
-		[PoporOrientation disabled];
+		[PoporOrientation disable];
 	}
 }
 

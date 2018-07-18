@@ -27,7 +27,7 @@ typedef void(^BlockPUIDeviceOrientation) (UIDeviceOrientation orientation);
 @property (nonatomic        ) UIInterfaceOrientation     newInterfaceOrientation;// AppDelegate使用
 @property (nonatomic        ) UIInterfaceOrientationMask newInterfaceOrientationMask;// AppDelegate使用
 
-@property (nonatomic, copy  ) BlockPUIDeviceOrientation  rotatedBlock; // 完成旋转后的回调
+@property (nonatomic, copy  ) BlockPUIDeviceOrientation  finishBlock; // 完成旋转后的回调
 
 + (instancetype)share;
 
@@ -47,9 +47,9 @@ typedef void(^BlockPUIDeviceOrientation) (UIDeviceOrientation orientation);
 + (void)enableRotateTo:(UIInterfaceOrientation)interfaceOrientation finish:(BlockPUIDeviceOrientation)block;
 
 // 关闭自动旋转功能
-+ (void)disabled;
++ (void)disable;
 // 关闭旋转功能,并且旋转到?
-+ (void)disabledRotateTo:(UIInterfaceOrientation)interfaceOrientation;
++ (void)disableRotateTo:(UIInterfaceOrientation)interfaceOrientation;
 
 - (void)sysOritationMonitor_NotificationCenterEnabled:(BOOL)enabled;
 // 该函数enabled == NO,将关闭系统触发application:supportedInterfaceOrientationsForWindow:功能,需要的话可以重新打开.
