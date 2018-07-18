@@ -40,8 +40,14 @@
     PoporOrientation * po = [PoporOrientation share];
     po.rotatedBlock = block;
     po.allowRotation = YES;
+
+#if TARGET_IPHONE_SIMULATOR
+    //模拟器 : 由于虚拟机没有陀螺仪,所以需要多执行下面的代码,这样的话,会触发系统紊乱,从而自动识别到对的方向.
     UIInterfaceOrientation io = [PoporInterfaceOrientation interfaceOrientation_deviceOrientation:po.lastDeviceOrientation];
     [PoporInterfaceOrientation rotateTo:io];
+#elif TARGET_OS_IPHONE//真机
+    //真机 : 存在陀螺仪的话,不需要多余的操作.
+#endif
     
     if (!po.pmm) {
         po.pmm = [PoporMotionManager new];
