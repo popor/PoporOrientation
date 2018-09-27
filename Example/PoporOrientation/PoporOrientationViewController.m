@@ -151,7 +151,7 @@
         [PoporOrientation enableAutoFinish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabled];
+        [PoporOrientation disable];
     }
 }
 
@@ -167,7 +167,7 @@
         [PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeLeft finish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabled];
+        [PoporOrientation disable];
     }
 }
 
@@ -178,7 +178,7 @@
         [PoporOrientation enableRotateTo:UIInterfaceOrientationLandscapeRight finish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabled];
+        [PoporOrientation disable];
     }
 }
 
@@ -189,7 +189,7 @@
         [PoporOrientation enablePriorityLeftFinish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabled];
+        [PoporOrientation disable];
     }
 }
 
@@ -200,7 +200,7 @@
         [PoporOrientation enablePriorityRightFinish:nil];
         [self closeLockEvent];
     }else{
-        [PoporOrientation disabled];
+        [PoporOrientation disable];
     }
 }
 
