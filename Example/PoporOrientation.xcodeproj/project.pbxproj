@@ -311,7 +311,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PoporOrientation_Example/Pods-PoporOrientation_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PoporOrientation_Example/Pods-PoporOrientation_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/PoporFoundation/PoporFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/PoporOrientation/PoporOrientation.framework",
@@ -324,7 +324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PoporOrientation_Example/Pods-PoporOrientation_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PoporOrientation_Example/Pods-PoporOrientation_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9C7872DA2CD584A5C2BA6C84 /* [CP] Check Pods Manifest.lock */ = {

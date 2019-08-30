@@ -10,7 +10,9 @@
 #endif
 #endif
 
-#import "NSObject+Swizzling.h"
+#import "NSObject+pAssign.h"
+#import "NSObject+pPerformSelector.h"
+#import "NSObject+pSwizzling.h"
 
 FOUNDATION_EXPORT double PoporFoundationVersionNumber;
 FOUNDATION_EXPORT const unsigned char PoporFoundationVersionString[];

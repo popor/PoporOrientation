@@ -1,7 +1,7 @@
 PODS:
   - Masonry (1.1.0)
-  - PoporFoundation/NSObject (0.0.11)
-  - PoporOrientation (0.0.1):
+  - PoporFoundation/NSObject (1.02)
+  - PoporOrientation (1.01):
     - PoporFoundation/NSObject
 
 DEPENDENCIES:
@@ -19,9 +19,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  PoporFoundation: 7e6c708d1576437a1be303f74d00a5cd68baef4e
-  PoporOrientation: d6ed51cd48d3eebeaa722b27c467b3833494d019
+  PoporFoundation: 3bc0abbb2bd3e13083558717185d67abeec25ab0
+  PoporOrientation: fc9689a00117c6f084b7951664f5e4a94817a3e5
 
 PODFILE CHECKSUM: 49716f31b32468face70c9911e84a278ae851c7c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.5
